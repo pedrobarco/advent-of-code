@@ -6,6 +6,7 @@ import (
 	"github.com/pedrobarco/advent-of-code/2022/internal/day01"
 	"github.com/pedrobarco/advent-of-code/2022/internal/day02"
 	"github.com/pedrobarco/advent-of-code/2022/internal/day03"
+	"github.com/pedrobarco/advent-of-code/2022/internal/day04"
 	"github.com/pedrobarco/advent-of-code/2022/pkg/solver"
 )
 
@@ -16,6 +17,7 @@ func main() {
 		day01.Day01{},
 		day02.Day02{},
 		day03.Day03{},
+		day04.Day04{},
 	}
 
 	fmt.Println("############")
