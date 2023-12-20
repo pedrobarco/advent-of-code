@@ -1,10 +1,9 @@
 package day01
 
 import (
-	"bufio"
-	"os"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/pedrobarco/advent-of-code/2022/pkg/solver"
 )
@@ -14,24 +13,16 @@ type Day01 struct{}
 var _ solver.Solver = (*Day01)(nil)
 
 func (Day01) P1(input string) string {
-	file, err := os.Open(input)
-	if err != nil {
-		panic(err)
-	}
-
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
 	calories := make([]int, 0)
 	sum := 0
 
-	for scanner.Scan() {
-		switch text := scanner.Text(); text {
+	for _, line := range strings.Split(input, "\n") {
+		switch line {
 		case "":
 			calories = append(calories, sum)
 			sum = 0
 		default:
-			num, err := strconv.Atoi(text)
+			num, err := strconv.Atoi(line)
 			if err != nil {
 				panic(err)
 			}
@@ -48,24 +39,16 @@ func (Day01) P1(input string) string {
 }
 
 func (Day01) P2(input string) string {
-	file, err := os.Open(input)
-	if err != nil {
-		panic(err)
-	}
-
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
 	calories := make([]int, 0)
 	sum := 0
 
-	for scanner.Scan() {
-		switch text := scanner.Text(); text {
+	for _, line := range strings.Split(input, "\n") {
+		switch line {
 		case "":
 			calories = append(calories, sum)
 			sum = 0
 		default:
-			num, err := strconv.Atoi(text)
+			num, err := strconv.Atoi(line)
 			if err != nil {
 				panic(err)
 			}
