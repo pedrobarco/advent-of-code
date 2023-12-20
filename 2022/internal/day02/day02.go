@@ -17,15 +17,6 @@ type Day02 struct{}
 
 var _ solver.Solver = (*Day02)(nil)
 
-func index(arr []string, el string) int {
-	for i, v := range arr {
-		if v == el {
-			return i
-		}
-	}
-	return -1
-}
-
 func (Day02) P1(input string) string {
 	m1 := []string{"A", "B", "C"}
 	m2 := []string{"X", "Y", "Z"}
@@ -33,10 +24,6 @@ func (Day02) P1(input string) string {
 
 	for _, line := range strings.Split(input, "\n") {
 		text := strings.Split(line, " ")
-		if len(text) != 2 {
-			continue
-		}
-
 		t1 := text[0]
 		t2 := text[1]
 		p1 := index(m1, t1) + 1
@@ -60,10 +47,6 @@ func (Day02) P2(input string) string {
 
 	for _, line := range strings.Split(input, "\n") {
 		text := strings.Split(line, " ")
-		if len(text) != 2 {
-			continue
-		}
-
 		t1 := text[0]
 		t2 := text[1]
 		p1 := index(m1, t1) + 1
@@ -89,4 +72,13 @@ func (Day02) P2(input string) string {
 	}
 
 	return strconv.Itoa(ans)
+}
+
+func index(arr []string, el string) int {
+	for i, v := range arr {
+		if v == el {
+			return i
+		}
+	}
+	return -1
 }
