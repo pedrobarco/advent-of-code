@@ -1,8 +1,10 @@
+pub mod day01;
+
 use std::fs;
 
 pub trait Solver {
-    fn p1(&self, input: &str) -> &str;
-    fn p2(&self, input: &str) -> &str;
+    fn p1(&self, input: &str) -> String;
+    fn p2(&self, input: &str) -> String;
 }
 
 pub fn nth_input(base: &str, n: &i32) -> String {
@@ -17,7 +19,10 @@ pub fn nth_pi_output(base: &str, n: &i32, i: &i32) -> String {
 }
 
 fn parse_input(file_path: &str) -> String {
-    fs::read_to_string(file_path).unwrap()
+    fs::read_to_string(file_path)
+        .unwrap()
+        .trim_end()
+        .to_string()
 }
 
 fn nth_day(n: &i32) -> String {

@@ -1,8 +1,11 @@
+use crate::solver::day01::Day01;
+
 mod solver;
 
 fn main() {
     let base = "./input";
-    let solvers: Vec<Box<dyn solver::Solver>> = Vec::new();
+    let mut solvers: Vec<Box<dyn solver::Solver>> = Vec::new();
+    solvers.push(Box::new(Day01 {}));
 
     println!("############");
     println!("# AOC 2023 #");
@@ -20,11 +23,13 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::solver;
+    use super::solver::day01::Day01;
 
     #[test]
     fn test_solvers() {
         let base = "./test_data";
-        let solvers: Vec<Box<dyn solver::Solver>> = Vec::new();
+        let mut solvers: Vec<Box<dyn solver::Solver>> = Vec::new();
+        solvers.push(Box::new(Day01 {}));
 
         for (i, s) in solvers.iter().enumerate() {
             let day: i32 = (i + 1).try_into().unwrap();
