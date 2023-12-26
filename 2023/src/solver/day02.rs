@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use regex::Regex;
+use std::collections::HashMap;
 
 use super::Solver;
 
@@ -23,17 +23,24 @@ impl Solver for Day02 {
             .enumerate()
             .filter(|(_, l)| {
                 let re = Regex::new(r"([0-9]+) (\w+)").unwrap();
-                l.split(":").nth(1).unwrap().split(";").find(|set| {
-                    set.split(",").find(|&cube| {
-                        let (_, [number, color]) = re.captures(cube).unwrap().extract();
-                        cubes.get(color).unwrap_or(&0) < &number.parse().unwrap()
-                    }).is_some()
-                }).is_none()
+                l.split(":")
+                    .nth(1)
+                    .unwrap()
+                    .split(";")
+                    .find(|set| {
+                        set.split(",")
+                            .find(|&cube| {
+                                let (_, [number, color]) = re.captures(cube).unwrap().extract();
+                                cubes.get(color).unwrap_or(&0) < &number.parse().unwrap()
+                            })
+                            .is_some()
+                    })
+                    .is_none()
             })
-            .map(|(i, _)| i+1)
+            .map(|(i, _)| i + 1)
             .sum();
 
-        return res.to_string()
+        return res.to_string();
     }
 
     fn p2(&self, input: &str) -> String {
@@ -46,7 +53,9 @@ impl Solver for Day02 {
                 l.split(":").nth(1).unwrap().split(";").for_each(|set| {
                     set.split(",").for_each(|cube| {
                         let (_, [number, color]) = re.captures(cube).unwrap().extract();
-                        if cubes.get(color).is_none() || cubes.get(color).unwrap() < &number.parse().unwrap() {
+                        if cubes.get(color).is_none()
+                            || cubes.get(color).unwrap() < &number.parse().unwrap()
+                        {
                             cubes.insert(color.to_string(), number.parse().unwrap());
                         }
                     });
@@ -56,9 +65,10 @@ impl Solver for Day02 {
                 for (_, v) in cubes {
                     res *= v;
                 }
-                return res as usize
-            }).sum();
+                return res as usize;
+            })
+            .sum();
 
-        return res.to_string()
+        return res.to_string();
     }
 }
