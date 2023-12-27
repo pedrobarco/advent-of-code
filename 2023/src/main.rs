@@ -1,5 +1,6 @@
 use crate::solver::day01::Day01;
 use crate::solver::day02::Day02;
+use crate::solver::day03::Day03;
 
 mod solver;
 
@@ -8,6 +9,7 @@ fn main() {
     let mut solvers: Vec<Box<dyn solver::Solver>> = Vec::new();
     solvers.push(Box::new(Day01 {}));
     solvers.push(Box::new(Day02 {}));
+    solvers.push(Box::new(Day03 {}));
 
     println!("############");
     println!("# AOC 2023 #");
@@ -27,6 +29,7 @@ mod tests {
     use super::solver;
     use super::solver::day01::Day01;
     use super::solver::day02::Day02;
+    use crate::solver::day03::Day03;
 
     #[test]
     fn test_solvers() {
@@ -34,6 +37,7 @@ mod tests {
         let mut solvers: Vec<Box<dyn solver::Solver>> = Vec::new();
         solvers.push(Box::new(Day01 {}));
         solvers.push(Box::new(Day02 {}));
+        solvers.push(Box::new(Day03 {}));
 
         for (i, s) in solvers.iter().enumerate() {
             let day: i32 = (i + 1).try_into().unwrap();
