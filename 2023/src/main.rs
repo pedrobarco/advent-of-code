@@ -4,6 +4,7 @@ use crate::solver::day03::Day03;
 use crate::solver::day04::Day04;
 use crate::solver::day05::Day05;
 use crate::solver::day06::Day06;
+use crate::solver::day07::Day07;
 
 mod solver;
 
@@ -16,6 +17,7 @@ fn main() {
     solvers.push(Box::new(Day04 {}));
     solvers.push(Box::new(Day05 {}));
     solvers.push(Box::new(Day06 {}));
+    solvers.push(Box::new(Day07 {}));
 
     println!("############");
     println!("# AOC 2023 #");
@@ -39,6 +41,7 @@ mod tests {
     use crate::solver::day04::Day04;
     use crate::solver::day05::Day05;
     use crate::solver::day06::Day06;
+    use crate::solver::day07::Day07;
 
     #[test]
     fn test_solvers() {
@@ -50,6 +53,7 @@ mod tests {
         solvers.push(Box::new(Day04 {}));
         solvers.push(Box::new(Day05 {}));
         solvers.push(Box::new(Day06 {}));
+        solvers.push(Box::new(Day07 {}));
 
         for (i, s) in solvers.iter().enumerate() {
             let day: i32 = (i + 1).try_into().unwrap();
