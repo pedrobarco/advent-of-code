@@ -1,0 +1,7 @@
+# Build artifacts
+/build/
+**/*.beam
+
+# Dependencies
+/gleam_cache/
+/rebar.lock
