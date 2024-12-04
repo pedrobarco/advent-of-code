@@ -5,3 +5,5 @@
 # Dependencies
 /gleam_cache/
 /rebar.lock
+
+inputs/*_am.in

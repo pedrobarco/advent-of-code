@@ -4,8 +4,9 @@ import solver
 import solvers/day1
 import solvers/day2
 import solvers/day3
+import solvers/day4
 
-const solvers: List(solver.Solver) = [day1.solver, day2.solver, day3.solver]
+const solvers: List(solver.Solver) = [day1.solver, day2.solver, day3.solver, day4.solver]
 
 pub fn get_solver(day: Int) -> Result(solver.Solver, RegistryError) {
   solvers
