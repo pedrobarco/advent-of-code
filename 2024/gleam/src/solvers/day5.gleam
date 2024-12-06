@@ -1,9 +1,8 @@
 import gleam/dict.{type Dict}
 import gleam/int
-import gleam/io
 import gleam/list
-import gleam/order
 import gleam/result
+import gleam/set.{type Set}
 import gleam/string
 import solver
 import utils
@@ -44,40 +43,60 @@ fn sort_page(
   rules: PageOrderingRules,
   page: List(#(Int, Int)),
 ) -> List(#(Int, Int)) {
-  io.debug(
-    "TO SORT: "
-    <> page
-    |> list.map(fn(x) { x.1 })
-    |> list.map(int.to_string)
-    |> string.join(", "),
-  )
-  let sorted =
-    page
-    |> list.sort(fn(a, b) {
-      case dict.get(rules, a.1) {
-        Error(_) -> order.Eq
-        Ok(deps) -> {
-          io.debug("a = " <> a.1 |> int.to_string)
-          io.debug("b = " <> b.1 |> int.to_string)
-          io.debug(
-            "deps(a) = " <> deps |> list.map(int.to_string) |> string.join(", "),
-          )
-          case list.contains(deps, b.1) {
-            True -> order.Lt
-            False -> order.Eq
-          }
+  page
+  |> list.map(fn(curr) {
+    let deps_rules = dict.get(rules, curr.1) |> result.unwrap([])
+    let deps = page |> list.filter(fn(x) { list.contains(deps_rules, x.1) })
+    #(curr, deps)
+  })
+  |> dict.from_list()
+  |> topo_sort(page, set.new(), [])
+}
+
+type Node =
+  #(Int, Int)
+
+type Graph =
+  Dict(Node, List(Node))
+
+fn topo_sort(
+  graph: Graph,
+  to_visit: List(Node),
+  visited: Set(Node),
+  path: List(Node),
+) -> List(Node) {
+  case to_visit {
+    [] -> path
+    [node, ..rest] -> {
+      case set.contains(visited, node) {
+        True -> topo_sort(graph, rest, visited, path)
+        False -> {
+          let #(visited, path) = dfs(graph, node, visited, path)
+          topo_sort(graph, rest, visited, path)
         }
       }
-    })
-  io.debug(
-    "SORTED: "
-    <> sorted
-    |> list.map(fn(x) { x.1 })
-    |> list.map(int.to_string)
-    |> string.join(", "),
-  )
-  io.debug("-------------------------------------")
-  sorted
+    }
+  }
+}
+
+fn dfs(
+  graph: Graph,
+  src: Node,
+  visited: Set(Node),
+  path: List(Node),
+) -> #(Set(Node), List(Node)) {
+  case set.contains(visited, src) {
+    True -> #(visited, path)
+    False -> {
+      let deps = dict.get(graph, src) |> result.unwrap([])
+      let #(visited, path) =
+        list.fold(deps, #(visited, path), fn(acc, x) {
+          dfs(graph, x, acc.0, acc.1)
+        })
+      let visited = set.insert(visited, src)
+      #(visited, [src, ..path])
+    }
+  }
 }
 
 fn p1(input: String) -> String {
@@ -168,28 +187,11 @@ fn p2(input: String) -> String {
     case all_ordered {
       True -> 0
       False -> {
-        let all_ordered =
-          page
-          |> list.fold(page, fn(page, _) { sort_page(rules, page) })
-
-        io.debug(
-          "OLD: "
-          <> page
-          |> list.map(fn(x) { x.1 })
-          |> list.map(int.to_string)
-          |> string.join(","),
-        )
-        io.debug(
-          "NEW: "
-          <> all_ordered
-          |> list.map(fn(x) { x.1 })
-          |> list.map(int.to_string)
-          |> string.join(","),
-        )
-
-        all_ordered
-        |> list.key_find(list.length(page) / 2)
-        |> result.unwrap(0)
+        sort_page(rules, page)
+        |> list.drop(list.length(page) / 2)
+        |> list.first
+        |> result.unwrap(#(0, 0))
+        |> fn(x) { x.1 }
       }
     }
   })
