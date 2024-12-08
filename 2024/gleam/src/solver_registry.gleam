@@ -6,9 +6,10 @@ import solvers/day2
 import solvers/day3
 import solvers/day4
 import solvers/day5
+import solvers/day6
 
 const solvers: List(solver.Solver) = [
-  day1.solver, day2.solver, day3.solver, day4.solver, day5.solver,
+  day1.solver, day2.solver, day3.solver, day4.solver, day5.solver, day6.solver,
 ]
 
 pub fn get_solver(day: Int) -> Result(solver.Solver, RegistryError) {
