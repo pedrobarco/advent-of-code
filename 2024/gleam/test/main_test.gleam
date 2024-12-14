@@ -9,7 +9,7 @@ pub fn main() {
   gleeunit.main()
 }
 
-const day = 11
+const day = 12
 
 const part1 = "PART 1: "
 
