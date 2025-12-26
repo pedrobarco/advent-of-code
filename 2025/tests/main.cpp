@@ -5,7 +5,7 @@
 int fail(int day, int part, const std::string& expected, const std::string& actual) {
     std::cerr << "FAILED: Day " << day << " Part " << part << std::endl;
     std::cerr << "  Expected: " << std::quoted(expected) << std::endl;
-    std::cerr << "    Actual: " << std::quoted(actual) << std::endl;
+    std::cerr << "  Actual:   " << std::quoted(actual) << std::endl;
     return 1;
 }
 

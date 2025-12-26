@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -45,5 +46,9 @@ std::string read_example_output(int day, int part) {
     std::ifstream file(input);
     std::stringstream buffer;
     buffer << file.rdbuf();
-    return buffer.str();
+    std::string str = buffer.str();
+    if (!str.empty() && str.back() == '\n') {
+        str.pop_back();
+    }
+    return str;
 }
