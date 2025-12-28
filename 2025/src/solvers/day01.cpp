@@ -1,6 +1,5 @@
 #include "day01.h"
 #include <cstdlib>
-#include <iostream>
 #include <sstream>
 #include <string>
 
