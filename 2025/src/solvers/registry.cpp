@@ -6,6 +6,7 @@
 #include "day05.h"
 #include "day06.h"
 #include "day07.h"
+#include "day08.h"
 
 Solver* solvers[25] = {
     new Day01Solver(),
@@ -15,4 +16,5 @@ Solver* solvers[25] = {
     new Day05Solver(),
     new Day06Solver(),
     new Day07Solver(),
+    new Day08Solver(),
 };
