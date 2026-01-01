@@ -3,6 +3,7 @@
 #include <set>
 #include <sstream>
 #include <utility>
+#include <queue>
 
 int Day07Solver::kDay() {
     return 7;

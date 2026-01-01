@@ -42,3 +42,4 @@
 
 # aoc binary
 bin/*
+!tests/data/*.out
