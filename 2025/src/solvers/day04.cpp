@@ -7,66 +7,70 @@ int Day04Solver::kDay() {
     return 4;
 }
 
-class Direction {
-    public:
-        int dx;
-        int dy;
-        Direction(int dx, int dy) : dx(dx), dy(dy) {}
-};
+namespace {
 
-const std::vector<Direction> directions = {
-    Direction(0, -1),  // up
-    Direction(0, 1),   // down
-    Direction(-1, 0),  // left
-    Direction(1, 0),   // right
-    Direction(-1, -1), // up-left
-    Direction(1, -1),  // up-right
-    Direction(-1, 1),  // down-left
-    Direction(1, 1)    // down-right
-};
+    class Direction {
+        public:
+            int dx;
+            int dy;
+            Direction(int dx, int dy) : dx(dx), dy(dy) {}
+    };
 
-class Position {
-    public:
-        int x;
-        int y;
-        Position(int x, int y) : x(x), y(y) {}
-};
+    const std::vector<Direction> directions = {
+        Direction(0, -1),  // up
+        Direction(0, 1),   // down
+        Direction(-1, 0),  // left
+        Direction(1, 0),   // right
+        Direction(-1, -1), // up-left
+        Direction(1, -1),  // up-right
+        Direction(-1, 1),  // down-left
+        Direction(1, 1)    // down-right
+    };
 
-class Item {
-    public:
-        char value;
-        Position position;
-        bool is_paper() {
-            return value == '@';
-        }
-        Item(char value, Position position) : value(value), position(position) {}
-};
+    class Position {
+        public:
+            int x;
+            int y;
+            Position(int x, int y) : x(x), y(y) {}
+    };
 
-class Grid {
-    private:
-        std::vector<std::vector<Item>> cells;
-    public:
-        Item get(Position pos) {
-            return cells[pos.y][pos.x];
-        }
-        void remove(Position pos) {
-            cells[pos.y][pos.x] = Item('.', pos);
-        };
-        std::vector<Item> neighbours(Item item) {
-            std::vector<Item> result;
-
-            for (auto& dir : directions) {
-                int nx = item.position.x + dir.dx;
-                int ny = item.position.y + dir.dy;
-                if (nx >= 0 && ny >= 0 && ny < (int)cells.size() && nx < (int)cells[ny].size()) {
-                    result.push_back(cells[ny][nx]);
-                }
+    class Item {
+        public:
+            char value;
+            Position position;
+            bool is_paper() {
+                return value == '@';
             }
+            Item(char value, Position position) : value(value), position(position) {}
+    };
 
-            return result;
-        }
-        Grid(std::vector<std::vector<Item>> cells) : cells(cells) {}
-};
+    class Grid {
+        private:
+            std::vector<std::vector<Item>> cells;
+        public:
+            Item get(Position pos) {
+                return cells[pos.y][pos.x];
+            }
+            void remove(Position pos) {
+                cells[pos.y][pos.x] = Item('.', pos);
+            };
+            std::vector<Item> neighbours(Item item) {
+                std::vector<Item> result;
+
+                for (auto& dir : directions) {
+                    int nx = item.position.x + dir.dx;
+                    int ny = item.position.y + dir.dy;
+                    if (nx >= 0 && ny >= 0 && ny < (int)cells.size() && nx < (int)cells[ny].size()) {
+                        result.push_back(cells[ny][nx]);
+                    }
+                }
+
+                return result;
+            }
+            Grid(std::vector<std::vector<Item>> cells) : cells(cells) {}
+    };
+
+}
 
 std::string Day04Solver::one(std::string input) {
     std::stringstream ss(input);
@@ -163,4 +167,3 @@ std::string Day04Solver::two(std::string input) {
 
     return std::to_string(total_accessible_papers);
 }
-

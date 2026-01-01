@@ -11,37 +11,41 @@ int Day03Solver::kDay() {
     return 3;
 }
 
-class Battery {
-    public:
-        int index;
-        int digit;
-};
+namespace {
 
-class Bank {
-    public:
-        std::size_t size;
-        std::vector<Battery> batteries;
-        Bank(std::size_t size) : size(size), batteries(size) {}
+    class Battery {
+        public:
+            int index;
+            int digit;
+    };
 
-        static long joltage(const std::vector<Battery>& batteries) {
-            std::vector<int> order(batteries.size());
-            std::iota(order.begin(), order.end(), 0);
+    class Bank {
+        public:
+            std::size_t size;
+            std::vector<Battery> batteries;
+            Bank(std::size_t size) : size(size), batteries(size) {}
 
-            std::sort(order.begin(), order.end(),
-                    [&](int a, int b) {
-                    return batteries[a].index < batteries[b].index;
-                    });
+            static long joltage(const std::vector<Battery>& batteries) {
+                std::vector<int> order(batteries.size());
+                std::iota(order.begin(), order.end(), 0);
 
-            long total = 0;
-            for (int idx : order) {
-                if (batteries[idx].digit == 0 ) {
-                    continue;
+                std::sort(order.begin(), order.end(),
+                        [&](int a, int b) {
+                        return batteries[a].index < batteries[b].index;
+                        });
+
+                long total = 0;
+                for (int idx : order) {
+                    if (batteries[idx].digit == 0 ) {
+                        continue;
+                    }
+                    total = total * 10 + batteries[idx].digit;
                 }
-                total = total * 10 + batteries[idx].digit;
+                return total;
             }
-            return total;
-        }
-};
+    };
+
+}
 
 std::string Day03Solver::one(std::string input) {
     std::stringstream ss(input);

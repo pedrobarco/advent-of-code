@@ -8,27 +8,31 @@ int Day06Solver::kDay() {
     return 6;
 }
 
-class Problem {
-    public:
-        std::vector<std::string> words;
-        long solve() {
-            long res(std::stol(words[0]));
-            std::string op(words.back());
-            for (auto it = words.begin() + 1; it != words.end() - 1; ++it) {
-                long val = std::stol(*it);
-                switch (op[0]) {
-                    case '+':
-                        res += val;
-                        break;
-                    case '*':
-                        res *= val;
-                        break;
+namespace {
+
+    class Problem {
+        public:
+            std::vector<std::string> words;
+            long solve() {
+                long res(std::stol(words[0]));
+                std::string op(words.back());
+                for (auto it = words.begin() + 1; it != words.end() - 1; ++it) {
+                    long val = std::stol(*it);
+                    switch (op[0]) {
+                        case '+':
+                            res += val;
+                            break;
+                        case '*':
+                            res *= val;
+                            break;
+                    }
                 }
-            }
-            return res;
-        };
-        Problem() : words() {}
-};
+                return res;
+            };
+            Problem() : words() {}
+    };
+
+}
 
 std::string Day06Solver::one(std::string input) {
     std::stringstream ss(input);

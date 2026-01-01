@@ -7,17 +7,21 @@ int Day05Solver::kDay() {
     return 5;
 }
 
-class FreshRange {
-    public:
-        long start;
-        long end;
+namespace {
 
-        bool is_fresh(long v) {
-            return v >= start && v <= end;
-        }
+    class FreshRange {
+        public:
+            long start;
+            long end;
 
-        FreshRange(long s, long e) : start(s), end(e) {}
-};
+            bool is_fresh(long v) {
+                return v >= start && v <= end;
+            }
+
+            FreshRange(long s, long e) : start(s), end(e) {}
+    };
+
+}
 
 std::string Day05Solver::one(std::string input) {
     std::stringstream ss(input);
